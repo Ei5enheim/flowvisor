@@ -56,7 +56,7 @@ public class FVPacketIn extends OFPacketIn implements Classifiable, Slicable,
 				this.getPacketData());
 		if (flowEntry == null) {
 			FVLog.log(LogLevel.DEBUG, fvClassifier,
-					"dropping unclassifiable msg: " + this.toVerboseString());
+					"*********** dropping unclassifiable msg: " + this.toVerboseString());
 			return;
 		}
 		

@@ -614,10 +614,9 @@ public class FlowSpaceRuleStore {
 		FVLog.log(LogLevel.DEBUG, null, "dpid: ",dpid, "match: ",match.toString());
 		
 		set.or(allRules);
-		FVLog.log(LogLevel.DEBUG, null, "allRules: ",set.toString());
+		//FVLog.log(LogLevel.DEBUG, null, "allRules: ",set.toString());
 
 		try {
-			
 			testEmpty(set, dpids, dpid, FlowEntry.ALL_DPIDS, wildcards,0);
 			/*
 			 * Test every field and intersect the resulting bitset. If the bit
@@ -717,7 +716,7 @@ public class FlowSpaceRuleStore {
 		 * 
 		 * Higher numbers have higher priorities.
 		 */
-
+        FVLog.log(LogLevel.INFO, null, "***** Match found for ****", match);
 		TreeSet<FlowEntry> entries = new TreeSet<FlowEntry>();
 		for (int i = set.nextSetBit(0); i >= 0; i = set.nextSetBit(i + 1)){
 			entries.add(rules.get(i));

@@ -65,17 +65,17 @@ public class FVPacketOut extends OFPacketOut implements Classifiable, Slicable {
 				List<FlowEntry> flowEntries = fvClassifier.getSwitchFlowMap()
 						.matches(fvClassifier.getSwitchInfo().getDatapathId(),
 								match);
-				if ((flowEntries == null) // got no response
-						|| (flowEntries.size() < 1) // nothing matched
-						// has write permissions
-						|| (!flowEntries.get(0).hasPermissions(
-								fvSlicer.getSliceName(), SliceAction.WRITE))
-				// TODO add buffer_id check here
-				) {
-					FVLog
-							.log(LogLevel.WARN, fvSlicer,
-									"EPERM packet not in flowspace: "
-											+ this.toVerboseString());
+				if ((flowEntries == null)) {
+                    // got no responsea
+                    FVLog.log(LogLevel.DEBUG, null, "******* No Flowspace entries: ******", null);
+                    return;
+
+                } else if ((flowEntries.size() < 1)) {
+                    FVLog.log(LogLevel.DEBUG, null, "******* No matches found ******* ", null);
+                    return;
+                } else if ((!flowEntries.get(0).hasPermissions(
+								fvSlicer.getSliceName(), SliceAction.WRITE))) {
+					FVLog.log(LogLevel.DEBUG, null, "******* slice has no write permissions ", this.toVerboseString());
 					fvSlicer.sendMsg(FVMessageUtil.makeErrorMsg(
 							OFBadActionCode.OFPBAC_EPERM, this), fvSlicer);
 					return;
