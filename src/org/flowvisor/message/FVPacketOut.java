@@ -75,7 +75,7 @@ public class FVPacketOut extends OFPacketOut implements Classifiable, Slicable {
                     return;
                 } else if ((!flowEntries.get(0).hasPermissions(
 								fvSlicer.getSliceName(), SliceAction.WRITE))) {
-					FVLog.log(LogLevel.DEBUG, null, "******* slice has no write permissions ", this.toVerboseString());
+					FVLog.log(LogLevel.DEBUG, null, "******* slice has no write permissions, found entry ", flowEntries.get(0).toString());
 					fvSlicer.sendMsg(FVMessageUtil.makeErrorMsg(
 							OFBadActionCode.OFPBAC_EPERM, this), fvSlicer);
 					return;
