@@ -20,7 +20,8 @@ import org.flowvisor.slicer.FVSlicer;
  *
  */
 public class LLDPUtil {
-	final public static short ETHER_LLDP = (short) 0x88cc;
+	final public static short ETHER_LLDP = (short) 0x8849;
+    final public static short ETHER_BDDP = (short) 0x8942;
 	final public static short ETHER_VLAN = (short) 0x8100;
 	final public static byte[] LLDP_MULTICAST = { 0x01, 0x23, 0x20, 0x00, 0x00,
 			0x01 };
@@ -110,7 +111,7 @@ public class LLDPUtil {
 		FVLog.log(LogLevel.DEBUG,null,"Checking if the pkt is LLDP?", ether_type );
 		if (ether_type == ETHER_VLAN)
 			ether_type = packet.getShort(16);
-		if (ether_type != ETHER_LLDP){
+		if (ether_type != ETHER_LLDP && ether_type != ETHER_BDDP){
 			FVLog.log(LogLevel.DEBUG,null,"The pkt is not LLDP" );
 			return false;
 		}
