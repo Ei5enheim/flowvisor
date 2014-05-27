@@ -56,6 +56,8 @@ public class FVCtl {
 	XmlRpcClient client;
 	static APICmd[] cmdlist = new APICmd[] {
 		new APICmd("listSlices", 0),
+		new APICmd("changeLLDPHeader", 2, "<EtherType> <destination MAC>"),
+		new APICmd("changeBDDPHeader", 2, "<EtherType> <destination MAC>"),
 		new APICmd("createSlice", 3, "<slicename> <controller_url> <email>"),
 		new APICmd("changeSlice", 3, "<slicename> <key> <value>"),
 		new APICmd("deleteSlice", 1, "<slicename>"),
