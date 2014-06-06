@@ -161,6 +161,29 @@ def do_updateSlice(gopts, opts,args):
     if ret:
         print "Slice %s has been successfully updated" % args[0]
 
+def pa_updateLLDPHeader(args, cmd):
+    usage="%s <ethertype> <destination MAC address>" % USAGE.formate(cmd)
+    (sdesc, ldesc) = DESCS[cmd]
+    parser = OptionParser(usage=usage, description=ldesc)
+    return parser.parse_args(args)
+
+def do_updateLLDPHeader(gopts, opts, args):
+
+    if len(args) < 1:
+        print "update-LLDP-header: must specify the ethertype of LLDP frames."
+        sys.exit()
+    passwd = getPassword(gopts)
+    if len(args) == 2:
+        params = {"ethertype": args[0], "dstMACAddr": args[1]} 
+    else
+        params = {"ethertype": args[0], "dstMACAddr": ""}
+
+    ret = connect(gopts, "update-LLDP-header", passwd, data=params)
+
+    if ret:
+        print "LLDP frame header fields have been updated"
+
+
 def pa_removeSlice(args, cmd):
     usage = "%s <slicename>" % USAGE.format(cmd)
     (sdesc, ldesc) = DESCS[cmd]
@@ -896,6 +919,7 @@ CMDS = {
     'list-slices' : (pa_none, do_listSlices),
     'add-slice' : (pa_addSlice, do_addSlice),
     'update-slice' : (pa_updateSlice, do_updateSlice),
+    'update-LLDP-header':(pa_updateLLDPHeader, do_updateLLDPHeader),
     'remove-slice' : (pa_removeSlice, do_removeSlice),
     'update-slice-password' : (pa_updateSlicePassword, do_updateSlicePassword),
     'update-admin-password' : (pa_updateAdminPassword, do_updateAdminPassword),
@@ -962,6 +986,14 @@ DESCS = {
                     "Currently all the parameters of a slice are changeable, except the slicename"
                     )
                     ),
+    'update-LLDP-header' :("changes various fields used in identifying LLDP ethernet frame ",
+                          ("Allows a admin user to change the ether type and
+                          destination MAC address fields used to identify LLDP
+                          packets."
+                          " Currently the ethernet header of LLDP headers is
+                          common between all the slices."
+                          )
+                          ),
     'remove-slice' :("Deletes a slice", 
                     ("Deletes a slices and removes all the associated flowspace. "
                     )),
