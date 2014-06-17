@@ -1148,7 +1148,6 @@ def parse_global_args(arglist):
 if __name__ == '__main__':
   try:
     (gopts, rargs, parser) = parse_global_args(sys.argv[1:])
-    print "args: ", sys.argv
     if len(rargs) < 1:
         raise IndexError
     (parse_args, do_func) = CMDS[rargs[0]]
