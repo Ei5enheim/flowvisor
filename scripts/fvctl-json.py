@@ -177,7 +177,7 @@ def do_updateLldpHeader(gopts, opts, args):
     if len(args) == 2:
         params = {"ethertype": int(args[0]), "dstMACAddr": args[1]} 
     else :
-        params = {"ethertype": int(args[0)], "dstMACAddr": ""}
+        params = {"ethertype": int(args[0]), "dstMACAddr": ""}
 
     ret = connect(gopts, "update-lldp-header", passwd, data=params)
 
