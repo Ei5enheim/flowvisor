@@ -1002,7 +1002,7 @@ DESCS = {
                     )
                     ),
 
-    'get-lldp-header' :("Get the values of different fields in the ethernet"
+    'get-lldp-header-info' :("Get the values of different fields in the ethernet"
                         "frame used to classify a LLDP packet",
                         ("Allows an admin user to retrieve the ether type "
                         " and destination MAC address values used to identify"

@@ -35,15 +35,15 @@ public class LLDPUtil {
         return (true);
     }
 
-    static public Integer getLLDPEtherType() {
-        return (new Integer(ETHER_LLDP));
+    static public String  getLLDPEtherType() {
+        return (String.format("%04x", ETHER_LLDP & 0xFFFF));
     }
 
     static public String getDstMACAddr() {
         
         StringBuilder str = new StringBuilder();
         for (int i = 0; i < LLDP_UNICAST.length; i++) {
-            str.append((int)LLDP_UNICAST[i]);
+            str.append(String.format("%02x", LLDP_UNICAST[i] & 0xFF));
             if (i != LLDP_UNICAST.length-1) 
                 str.append(":");
         }
@@ -59,7 +59,7 @@ public class LLDPUtil {
         String[] array = dstMACAddr.split(delimiters);
 
         for (int i=0; i < array.length; i++) {
-           LLDP_UNICAST[i] = Byte.valueOf(array[i]); 
+           LLDP_UNICAST[i] = Byte.parseByte(array[i], 16); 
         }
         return (true);
     }
