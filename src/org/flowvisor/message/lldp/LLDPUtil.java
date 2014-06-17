@@ -35,6 +35,21 @@ public class LLDPUtil {
         return (true);
     }
 
+    static public Integer getLLDPEtherType() {
+        return (new Integer(ETHER_LLDP));
+    }
+
+    static public String getDstMACAddr() {
+        
+        StringBuilder str = new StringBuilder();
+        for (int i = 0; i < LLDP_UNICAST.length; i++) {
+            str.append((int)LLDP_UNICAST[i]);
+            if (i != LLDP_UNICAST.length-1) 
+                str.append(":");
+        }
+        return (str.toString());        
+    }
+
     static public boolean updateLLDPDstMACAddr (String dstMACAddr) {
 
         if (dstMACAddr == null)

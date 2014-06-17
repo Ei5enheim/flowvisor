@@ -161,6 +161,19 @@ def do_updateSlice(gopts, opts,args):
     if ret:
         print "Slice %s has been successfully updated" % args[0]
 
+def pa_getLldpHeader(args, cmd):
+    usage="%s" % USAGE.format(cmd)
+    (sdesc, ldesc) = DESCS[cmd]
+    return ([], args)
+
+def do_getLldpHeader(gopts, opts, args):
+
+    passwd = getPassword(gopts)
+    ret = connect(gopts, "get-lldp-header-info", passwd, data=None)
+    if ret:
+        print "Ether type of LLDP frames: ", ret["ethertype"]
+        print "Destination MAC address of LLDP frames: ", ret["dstMACAddr"]
+
 def pa_updateLldpHeader(args, cmd):
     usage="%s <ethertype> <destination MAC address>" % USAGE.format(cmd)
     (sdesc, ldesc) = DESCS[cmd]
@@ -921,6 +934,7 @@ CMDS = {
     'add-slice' : (pa_addSlice, do_addSlice),
     'update-slice' : (pa_updateSlice, do_updateSlice),
     'update-lldp-header':(pa_updateLldpHeader, do_updateLldpHeader),
+    'get-lldp-header-info':(pa_getLldpHeader, do_getLldpHeader),
     'remove-slice' : (pa_removeSlice, do_removeSlice),
     'update-slice-password' : (pa_updateSlicePassword, do_updateSlicePassword),
     'update-admin-password' : (pa_updateAdminPassword, do_updateAdminPassword),
@@ -987,6 +1001,12 @@ DESCS = {
                     "Currently all the parameters of a slice are changeable, except the slicename"
                     )
                     ),
+
+    'get-lldp-header' :("Get the values of different fields in the ethernet"
+                        "frame used to classify a LLDP packet",
+                        ("Allows an admin user to retrieve the ether type "
+                        " and destination MAC address values used to identify"
+                        "LLDP packets.")),
     'update-lldp-header' :("changes various fields used in identifying LLDP ethernet frame ",
                           ("Allows a admin user to change the ether type and"
                           "destination MAC address fields used to identify LLDP"
