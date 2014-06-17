@@ -49,7 +49,7 @@ public class UpdateLLDPHeader implements ApiHandler<Map<String, Object>> {
 	 */
 	private void updateLLDPHeader(String etherType, String dstMACAddr) {
 	    
-        LLDPUtil.updateLLDPEtherType(Short.parseShort(etherType, 16));
+        LLDPUtil.updateLLDPEtherType(Integer.decode(etherType).shortValue());
         if (!dstMACAddr.isEmpty()) {
             LLDPUtil.updateLLDPDstMACAddr(dstMACAddr);
         }
