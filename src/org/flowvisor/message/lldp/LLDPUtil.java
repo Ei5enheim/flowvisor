@@ -20,12 +20,34 @@ import org.flowvisor.slicer.FVSlicer;
  *
  */
 public class LLDPUtil {
-	final public static short ETHER_LLDP = (short) 0x8849;
-    final public static short ETHER_BDDP = (short) 0x8942;
+	public static short ETHER_LLDP = (short) 0x8849;
+    public static short ETHER_BDDP = (short) 0x8942;
 	final public static short ETHER_VLAN = (short) 0x8100;
-	final public static byte[] LLDP_MULTICAST = { 0x01, 0x23, 0x20, 0x00, 0x00,
+	public static byte[] LLDP_MULTICAST = { 0x01, 0x23, 0x20, 0x00, 0x00,
 			0x01 };
+    // most significant byte first 
+    public static byte[] LLDP_UNICAST = { 0x01, (byte)0x80, (byte)0xc2, 0x00, 0x00, 0x0e};
 	final public static int MIN_FV_NAME = 20;
+
+    static public boolean updateLLDPEtherType(Integer etherType) {
+    
+        ETHER_LLDP = etherType.shortValue(); 
+        return (true);
+    }
+
+    static public boolean updateLLDPDstMACAddr (String dstMACAddr) {
+
+        if (dstMACAddr == null)
+            return (false);
+
+        String delimiters = ":";
+        String[] array = dstMACAddr.split(delimiters);
+
+        for (int i=0; i < array.length; i++) {
+           LLDP_UNICAST[i] = Byte.valueOf(array[i]); 
+        }
+        return (true);
+    }
 
 	/**
 	 * If this msg is lldp, then 1) add a slice identifying trailer 2) send to

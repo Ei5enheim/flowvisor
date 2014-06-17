@@ -162,7 +162,7 @@ def do_updateSlice(gopts, opts,args):
         print "Slice %s has been successfully updated" % args[0]
 
 def pa_updateLldpHeader(args, cmd):
-    usage="%s <ethertype> <destination MAC address>" % USAGE.formate(cmd)
+    usage="%s <ethertype> <destination MAC address>" % USAGE.format(cmd)
     (sdesc, ldesc) = DESCS[cmd]
     #parser = OptionParser(usage=usage, description=ldesc)
     #return parser.parse_args(args)
@@ -175,9 +175,9 @@ def do_updateLldpHeader(gopts, opts, args):
         sys.exit()
     passwd = getPassword(gopts)
     if len(args) == 2:
-        params = {"ethertype": args[0], "dstMACAddr": args[1]} 
-    else
-        params = {"ethertype": args[0], "dstMACAddr": ""}
+        params = {"ethertype": int(args[0]), "dstMACAddr": args[1]} 
+    else :
+        params = {"ethertype": int(args[0)], "dstMACAddr": ""}
 
     ret = connect(gopts, "update-lldp-header", passwd, data=params)
 
@@ -988,13 +988,11 @@ DESCS = {
                     )
                     ),
     'update-lldp-header' :("changes various fields used in identifying LLDP ethernet frame ",
-                          ("Allows a admin user to change the ether type and
-                          destination MAC address fields used to identify LLDP
-                          packets."
-                          " Currently the ethernet header of LLDP headers is
-                          common between all the slices."
-                          )
-                          ),
+                          ("Allows a admin user to change the ether type and"
+                          "destination MAC address fields used to identify LLDP"
+                          "packets."
+                          "Currently the ethernet header of LLDP headers is"
+                          "common between all the slices.")),
     'remove-slice' :("Deletes a slice", 
                     ("Deletes a slices and removes all the associated flowspace. "
                     )),

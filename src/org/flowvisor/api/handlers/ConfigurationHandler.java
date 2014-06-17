@@ -17,6 +17,7 @@ import org.flowvisor.api.handlers.configuration.UpdateAdminPassword;
 import org.flowvisor.api.handlers.configuration.UpdateFlowSpace;
 import org.flowvisor.api.handlers.configuration.UpdateSlice;
 import org.flowvisor.api.handlers.configuration.UpdateSlicePassword;
+import org.flowvisor.api.handlers.configuration.UpdateLLDPHeader;
 
 import com.thetransactioncompany.jsonrpc2.JSONRPC2Error;
 import com.thetransactioncompany.jsonrpc2.JSONRPC2ParamsType;
@@ -44,6 +45,7 @@ public class ConfigurationHandler implements RequestHandler {
 		put("get-config", new GetConfig());
 		put("set-config", new SetConfig());
 		put("list-fs-status", new ListFSInsertionStatus());
+        put("update-lldp-header", new UpdateLLDPHeader());
 	}};
 	
 	
