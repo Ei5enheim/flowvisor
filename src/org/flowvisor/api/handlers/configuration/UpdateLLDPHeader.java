@@ -30,7 +30,7 @@ public class UpdateLLDPHeader implements ApiHandler<Map<String, Object>> {
 		JSONRPC2Response resp = null;
 		
 		try {
-			String etherType = HandlerUtils.<String>fetchField("ethertype", params, true, null).shortValue();
+			String etherType = HandlerUtils.<String>fetchField("ethertype", params, true, null);
 			String dstMACAddr = HandlerUtils.<String>fetchField("dstMACAddr", params, false, "01:80:c2:00:00:0e");
 			updateLLDPHeader(etherType, dstMACAddr);
 			
