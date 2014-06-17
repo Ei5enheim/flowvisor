@@ -21,7 +21,7 @@ public class GetLLDPHeaderInfo implements ApiHandler<Object> {
 		JSONRPC2Response resp = null;
 		try {
 			HashMap<String, Object> data = new HashMap<String, Object>();
-            Integer etherType = LLDPUtil.getLLDPEtherType();
+            String etherType = LLDPUtil.getLLDPEtherType();
             String dstMACAddr = LLDPUtil.getDstMACAddr();
             data.put("ethertype", etherType);
             data.put("dstMACAddr", dstMACAddr);

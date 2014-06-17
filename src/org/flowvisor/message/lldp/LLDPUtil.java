@@ -20,7 +20,7 @@ import org.flowvisor.slicer.FVSlicer;
  *
  */
 public class LLDPUtil {
-	public static short ETHER_LLDP = (short) 0x8849;
+	public static short ETHER_LLDP = (short) 0x88CC;
     public static short ETHER_BDDP = (short) 0x8942;
 	final public static short ETHER_VLAN = (short) 0x8100;
 	public static byte[] LLDP_MULTICAST = { 0x01, 0x23, 0x20, 0x00, 0x00,
@@ -36,7 +36,11 @@ public class LLDPUtil {
     }
 
     static public String  getLLDPEtherType() {
-        return (String.format("%04x", ETHER_LLDP & 0xFFFF));
+        StringBuilder str = new StringBuilder();
+        str.append("0x");
+        str.append(String.format("%04x", ETHER_LLDP & 0xFFFF));
+
+        return (str.toString());
     }
 
     static public String getDstMACAddr() {
