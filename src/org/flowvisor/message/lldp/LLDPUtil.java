@@ -29,9 +29,9 @@ public class LLDPUtil {
     public static byte[] LLDP_UNICAST = { 0x01, (byte)0x80, (byte)0xc2, 0x00, 0x00, 0x0e};
 	final public static int MIN_FV_NAME = 20;
 
-    static public boolean updateLLDPEtherType(Integer etherType) {
+    static public boolean updateLLDPEtherType(short etherType) {
     
-        ETHER_LLDP = etherType.shortValue(); 
+        ETHER_LLDP = etherType; 
         return (true);
     }
 
