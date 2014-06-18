@@ -164,7 +164,8 @@ def do_updateSlice(gopts, opts,args):
 def pa_getLldpHeader(args, cmd):
     usage="%s" % USAGE.format(cmd)
     (sdesc, ldesc) = DESCS[cmd]
-    return ([], args)
+    parser = OptionParser(usage=usage, description=ldesc)
+    return parser.parse_args(args)
 
 def do_getLldpHeader(gopts, opts, args):
 
@@ -175,11 +176,11 @@ def do_getLldpHeader(gopts, opts, args):
         print "Destination MAC address of LLDP frames: ", ret["dstMACAddr"]
 
 def pa_updateLldpHeader(args, cmd):
-    usage="%s <ethertype> <destination MAC address>" % USAGE.format(cmd)
+    usage="%s <ethertype> [destination MAC address]" % USAGE.format(cmd)
     (sdesc, ldesc) = DESCS[cmd]
-    #parser = OptionParser(usage=usage, description=ldesc)
-    #return parser.parse_args(args)
-    return ([], args)
+    parser = OptionParser(usage=usage, description=ldesc)
+    return parser.parse_args(args)
+    #return ([], args)
 
 def do_updateLldpHeader(gopts, opts, args):
 
@@ -1002,17 +1003,23 @@ DESCS = {
                     )
                     ),
 
-    'get-lldp-header-info' :("Get the values of different fields in the ethernet"
-                        "frame used to classify a LLDP packet",
-                        ("Allows an admin user to retrieve the ether type "
-                        " and destination MAC address values used to identify"
-                        "LLDP packets.")),
-    'update-lldp-header' :("changes various fields used in identifying LLDP ethernet frame ",
-                          ("Allows a admin user to change the ether type and"
-                          "destination MAC address fields used to identify LLDP"
-                          "packets."
-                          "Currently the ethernet header of LLDP headers is"
-                          "common between all the slices.")),
+    'get-lldp-header-info' :("Displays the value of different fields in the ethernet"
+                            " frame used to classify a LLDP packet.",
+                            ("Allows an admin user to retrieve the ether type "
+                            " and destination MAC address values used to identify"
+                            " LLDP packets.")),
+    'update-lldp-header' :("Updates values of various fields used in identifying"
+                            " LLDP ethernet frames. Usage: "
+                            "fvctl update-lldp-header <ethertype> [destination MAC address]"
+                            ". The ethertype argument is mandatory while the"
+                            " destiantion MAC address is optional.",
+                          ("Allows an admin user to change the ether type and"
+                            " destination MAC address fields used to identify LLDP"
+                            " packets. Currently the ethernet header of LLDP headers is"
+                            " common between all the slices. Usage: "
+                            "fvctl update-lldp-header <ethertype> [destination MAC address]"
+                            ". The ethertype argument is mandatory while the"
+                            " destiantion MAC address is optional.")),
     'remove-slice' :("Deletes a slice", 
                     ("Deletes a slices and removes all the associated flowspace. "
                     )),
