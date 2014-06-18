@@ -63,7 +63,7 @@ public class LLDPUtil {
         String[] array = dstMACAddr.split(delimiters);
 
         for (int i=0; i < array.length; i++) {
-           LLDP_UNICAST[i] = Byte.parseByte(array[i], 16); 
+           LLDP_UNICAST[i] = (byte) (Integer.parseInt(array[i], 16) & 0xFF); 
         }
         return (true);
     }
