@@ -158,11 +158,22 @@ public class LLDPUtil {
 		if ((packetArray == null) || (packetArray.length < 14))
 			return false; // not lddp if no packet exists or too short
 		ByteBuffer packet = ByteBuffer.wrap(packetArray);
+        /*
         long destMACAddr = packet.getLong(0);
         if (destMACAddr != getDestMACAddr()) {
             System.out.println("packet destination mac address: "+destMACAddr+"constant mac addr: "+ getDestMACAddr());
             FVLog.log(LogLevel.DEBUG,null,"The pkt is not LLDP" );
             return false;
+        }*/
+
+        for (int i = 0; i < 6; i++) {
+            if (LLDP_UNICAST[i] != packet.get(i)) {
+                System.out.println("packet destination mac address: "+packet.get(i)+
+                                    "constant mac addr: "+ LLDP_UNICAST[i]);
+                FVLog.log(LogLevel.DEBUG,null,"The pkt is not LLDP" );
+                return (false);
+            }
+
         }
 
 		short ether_type = packet.getShort(12);
