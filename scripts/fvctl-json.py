@@ -184,9 +184,11 @@ def pa_updateLldpHeader(args, cmd):
 
 def do_updateLldpHeader(gopts, opts, args):
 
+    usage="update-lldp-header  <ethertype> [destination MAC address]"
     if len(args) < 1:
-        print "update-lldp-header: must specify the ethertype of LLDP frames."
+        print usage, " -- must specify the ethertype of LLDP frames."
         sys.exit()
+
     passwd = getPassword(gopts)
     if len(args) == 2:
         params = {"ethertype": args[0], "dstMACAddr": args[1]} 
